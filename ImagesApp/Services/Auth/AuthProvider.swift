@@ -11,7 +11,7 @@ import FirebaseAuth
 class AuthProvider: AuthProviderProtocol {
     func signIn(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let result {
+            if let _ = result {
                 completion(.success(()))
             }
             
@@ -23,7 +23,7 @@ class AuthProvider: AuthProviderProtocol {
     
     func createUser(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if let result {
+            if let _ = result {
                 completion(.success(()))
             }
             

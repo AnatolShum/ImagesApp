@@ -11,7 +11,9 @@ struct ImagesView: View {
     @StateObject private var viewModel = ImagesViewModel()
     
     var body: some View {
-        Text("ImagesView")
+        Button("Sign out") {
+            viewModel.signOut()
+        }
     }
 }
 

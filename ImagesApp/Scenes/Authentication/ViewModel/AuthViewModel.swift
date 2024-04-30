@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftUI
 
 class AuthViewModel: ObservableObject {
     @Published var email: String = ""
@@ -56,21 +57,21 @@ class AuthViewModel: ObservableObject {
         return true
     }
     
-    func viewTitle(_ state: AuthViewState) -> String {
+    func viewTitle(_ state: AuthViewState) -> LocalizedStringKey {
         switch state {
         case .signIn:
-            return "Sign in"
+            return "signIn"
         case .singUp:
-            return "Sign up"
+            return "signUp"
         }
     }
     
-    func chooseStateTitle(_ state: AuthViewState) -> String {
+    func chooseStateTitle(_ state: AuthViewState) -> LocalizedStringKey {
         switch state {
         case .signIn:
-            return "Create an account"
+            return "createAccount"
         case .singUp:
-            return "Login"
+            return "login"
         }
     }
     

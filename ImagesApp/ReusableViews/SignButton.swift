@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SignButton: View {
-    let title: String
+    let title: LocalizedStringKey
     let color: Color
     let action: () -> Void
     

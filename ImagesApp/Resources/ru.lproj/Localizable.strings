@@ -1,0 +1,12 @@
+/* 
+  Localizable.strings
+  ImagesApp
+
+  Created by Anatolii Shumov on 30.04.2024.
+  
+*/
+
+"signIn" = "Войти";
+"signUp" = "Регистрация";
+"createAccount" = "Создать аккаунт";
+"login" = "Войти с паролем";

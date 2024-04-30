@@ -27,6 +27,7 @@
 		3C78A01A2BE16C44005B5095 /* AuthProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0192BE16C44005B5095 /* AuthProviderProtocol.swift */; };
 		3C78A01C2BE16C55005B5095 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A01B2BE16C55005B5095 /* AuthService.swift */; };
 		3C78A01E2BE16C6C005B5095 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A01D2BE16C6C005B5095 /* AuthProvider.swift */; };
+		3C78A0412BE18567005B5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C78A0402BE18567005B5095 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,8 @@
 		3C78A0192BE16C44005B5095 /* AuthProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProviderProtocol.swift; sourceTree = "<group>"; };
 		3C78A01B2BE16C55005B5095 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		3C78A01D2BE16C6C005B5095 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
+		3C78A03F2BE18567005B5095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3C78A0422BE1856A005B5095 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,7 @@
 			children = (
 				3C789FF92BE136AE005B5095 /* GoogleService-Info.plist */,
 				3C789FE12BE1325D005B5095 /* Assets.xcassets */,
+				3C78A0402BE18567005B5095 /* Localizable.strings */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -294,6 +298,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ru,
 				Base,
 			);
 			mainGroup = 3C789FD12BE13259005B5095;
@@ -315,6 +320,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C789FE52BE1325D005B5095 /* Preview Assets.xcassets in Resources */,
+				3C78A0412BE18567005B5095 /* Localizable.strings in Resources */,
 				3C789FE22BE1325D005B5095 /* Assets.xcassets in Resources */,
 				3C789FFA2BE136AE005B5095 /* GoogleService-Info.plist in Resources */,
 			);
@@ -346,12 +352,25 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXVariantGroup section */
+		3C78A0402BE18567005B5095 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3C78A03F2BE18567005B5095 /* en */,
+				3C78A0422BE1856A005B5095 /* ru */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		3C789FE62BE1325D005B5095 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -415,6 +434,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
