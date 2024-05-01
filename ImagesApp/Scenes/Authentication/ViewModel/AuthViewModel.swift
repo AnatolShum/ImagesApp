@@ -38,14 +38,10 @@ class AuthViewModel: ObservableObject {
     }
     
     private func validateEmail(_ email: String) -> Bool {
-        guard !email.trimmingCharacters(in: .whitespaces).isEmpty,
-              email.contains("@"),
-              email.contains("."),
-              email.count > 5 else {
-            return false
-        }
+        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
         
-        return true
+        return emailPredicate.evaluate(with: email)
     }
     
     private func validatePassword(_ password: String) -> Bool {

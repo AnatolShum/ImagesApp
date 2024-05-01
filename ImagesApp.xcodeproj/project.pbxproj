@@ -19,8 +19,8 @@
 		3C78A0002BE1380A005B5095 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C789FFF2BE1380A005B5095 /* MainViewModel.swift */; };
 		3C78A0062BE13D3F005B5095 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0052BE13D3F005B5095 /* AuthViewModel.swift */; };
 		3C78A0082BE13D57005B5095 /* AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0072BE13D57005B5095 /* AuthView.swift */; };
-		3C78A00C2BE13DAF005B5095 /* ImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A00B2BE13DAF005B5095 /* ImagesViewModel.swift */; };
-		3C78A00E2BE13DC6005B5095 /* ImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A00D2BE13DC6005B5095 /* ImagesView.swift */; };
+		3C78A00C2BE13DAF005B5095 /* DeviceImagesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A00B2BE13DAF005B5095 /* DeviceImagesViewModel.swift */; };
+		3C78A00E2BE13DC6005B5095 /* DeviceImagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A00D2BE13DC6005B5095 /* DeviceImagesView.swift */; };
 		3C78A0112BE15FE5005B5095 /* SignButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0102BE15FE5005B5095 /* SignButton.swift */; };
 		3C78A0142BE1646A005B5095 /* DisabledButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0132BE1646A005B5095 /* DisabledButton.swift */; };
 		3C78A0162BE16735005B5095 /* AuthViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0152BE16735005B5095 /* AuthViewState.swift */; };
@@ -28,6 +28,18 @@
 		3C78A01C2BE16C55005B5095 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A01B2BE16C55005B5095 /* AuthService.swift */; };
 		3C78A01E2BE16C6C005B5095 /* AuthProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A01D2BE16C6C005B5095 /* AuthProvider.swift */; };
 		3C78A0412BE18567005B5095 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C78A0402BE18567005B5095 /* Localizable.strings */; };
+		3C78A0452BE248D7005B5095 /* ImagesTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0442BE248D7005B5095 /* ImagesTabView.swift */; };
+		3C78A04B2BE2499E005B5095 /* EditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A04A2BE2499E005B5095 /* EditsView.swift */; };
+		3C78A04D2BE249AC005B5095 /* EditsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A04C2BE249AC005B5095 /* EditsViewModel.swift */; };
+		3C78A0522BE24A21005B5095 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0512BE24A21005B5095 /* SettingsViewModel.swift */; };
+		3C78A0542BE24A44005B5095 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0532BE24A44005B5095 /* SettingsView.swift */; };
+		3C78A0562BE24AB8005B5095 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0552BE24AB8005B5095 /* TabItem.swift */; };
+		3C78A0582BE25760005B5095 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C78A0572BE25760005B5095 /* Photos.framework */; };
+		3C78A05A2BE25767005B5095 /* PhotosUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C78A0592BE25767005B5095 /* PhotosUI.framework */; };
+		3C78A0612BE285B7005B5095 /* DetailImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0602BE285B7005B5095 /* DetailImageViewModel.swift */; };
+		3C78A0632BE285C7005B5095 /* DetailImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0622BE285C7005B5095 /* DetailImageView.swift */; };
+		3C78A0652BE2945A005B5095 /* EditMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0642BE2945A005B5095 /* EditMenu.swift */; };
+		3C78A0672BE29572005B5095 /* EditItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0662BE29572005B5095 /* EditItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,8 +53,8 @@
 		3C789FFF2BE1380A005B5095 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		3C78A0052BE13D3F005B5095 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		3C78A0072BE13D57005B5095 /* AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthView.swift; sourceTree = "<group>"; };
-		3C78A00B2BE13DAF005B5095 /* ImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesViewModel.swift; sourceTree = "<group>"; };
-		3C78A00D2BE13DC6005B5095 /* ImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesView.swift; sourceTree = "<group>"; };
+		3C78A00B2BE13DAF005B5095 /* DeviceImagesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceImagesViewModel.swift; sourceTree = "<group>"; };
+		3C78A00D2BE13DC6005B5095 /* DeviceImagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceImagesView.swift; sourceTree = "<group>"; };
 		3C78A0102BE15FE5005B5095 /* SignButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignButton.swift; sourceTree = "<group>"; };
 		3C78A0132BE1646A005B5095 /* DisabledButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisabledButton.swift; sourceTree = "<group>"; };
 		3C78A0152BE16735005B5095 /* AuthViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewState.swift; sourceTree = "<group>"; };
@@ -51,6 +63,18 @@
 		3C78A01D2BE16C6C005B5095 /* AuthProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthProvider.swift; sourceTree = "<group>"; };
 		3C78A03F2BE18567005B5095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3C78A0422BE1856A005B5095 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3C78A0442BE248D7005B5095 /* ImagesTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesTabView.swift; sourceTree = "<group>"; };
+		3C78A04A2BE2499E005B5095 /* EditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditsView.swift; sourceTree = "<group>"; };
+		3C78A04C2BE249AC005B5095 /* EditsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditsViewModel.swift; sourceTree = "<group>"; };
+		3C78A0512BE24A21005B5095 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		3C78A0532BE24A44005B5095 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		3C78A0552BE24AB8005B5095 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		3C78A0572BE25760005B5095 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		3C78A0592BE25767005B5095 /* PhotosUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PhotosUI.framework; path = System/Library/Frameworks/PhotosUI.framework; sourceTree = SDKROOT; };
+		3C78A0602BE285B7005B5095 /* DetailImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageViewModel.swift; sourceTree = "<group>"; };
+		3C78A0622BE285C7005B5095 /* DetailImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageView.swift; sourceTree = "<group>"; };
+		3C78A0642BE2945A005B5095 /* EditMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMenu.swift; sourceTree = "<group>"; };
+		3C78A0662BE29572005B5095 /* EditItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +82,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C78A05A2BE25767005B5095 /* PhotosUI.framework in Frameworks */,
+				3C78A0582BE25760005B5095 /* Photos.framework in Frameworks */,
 				3C789FF32BE13532005B5095 /* FirebaseAuth in Frameworks */,
 				3C789FF52BE1358C005B5095 /* FirebaseFirestore in Frameworks */,
 				3C789FF72BE13591005B5095 /* FirebaseFirestoreSwift in Frameworks */,
@@ -118,6 +144,8 @@
 		3C789FF12BE13532005B5095 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3C78A0592BE25767005B5095 /* PhotosUI.framework */,
+				3C78A0572BE25760005B5095 /* Photos.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -135,9 +163,13 @@
 		3C789FFB2BE136B6005B5095 /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
+				3C78A0432BE248BC005B5095 /* TabView */,
 				3C789FFC2BE136EE005B5095 /* Main */,
 				3C78A0022BE13C61005B5095 /* Authentication */,
-				3C78A0012BE13C3A005B5095 /* Images */,
+				3C78A0012BE13C3A005B5095 /* DeviceImages */,
+				3C78A05D2BE2856E005B5095 /* DetailImageView */,
+				3C78A0472BE24962005B5095 /* EditsView */,
+				3C78A04E2BE249EE005B5095 /* Settings */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -167,13 +199,13 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		3C78A0012BE13C3A005B5095 /* Images */ = {
+		3C78A0012BE13C3A005B5095 /* DeviceImages */ = {
 			isa = PBXGroup;
 			children = (
 				3C78A00A2BE13D7D005B5095 /* ViewModel */,
 				3C78A0092BE13D76005B5095 /* View */,
 			);
-			path = Images;
+			path = DeviceImages;
 			sourceTree = "<group>";
 		};
 		3C78A0022BE13C61005B5095 /* Authentication */ = {
@@ -205,7 +237,7 @@
 		3C78A0092BE13D76005B5095 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3C78A00D2BE13DC6005B5095 /* ImagesView.swift */,
+				3C78A00D2BE13DC6005B5095 /* DeviceImagesView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -213,7 +245,7 @@
 		3C78A00A2BE13D7D005B5095 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				3C78A00B2BE13DAF005B5095 /* ImagesViewModel.swift */,
+				3C78A00B2BE13DAF005B5095 /* DeviceImagesViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -222,6 +254,9 @@
 			isa = PBXGroup;
 			children = (
 				3C78A0102BE15FE5005B5095 /* SignButton.swift */,
+				3C78A0552BE24AB8005B5095 /* TabItem.swift */,
+				3C78A0642BE2945A005B5095 /* EditMenu.swift */,
+				3C78A0662BE29572005B5095 /* EditItem.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -250,6 +285,97 @@
 				3C78A01D2BE16C6C005B5095 /* AuthProvider.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		3C78A0432BE248BC005B5095 /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0462BE248E0005B5095 /* View */,
+			);
+			path = TabView;
+			sourceTree = "<group>";
+		};
+		3C78A0462BE248E0005B5095 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0442BE248D7005B5095 /* ImagesTabView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C78A0472BE24962005B5095 /* EditsView */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0492BE2498C005B5095 /* ViewModel */,
+				3C78A0482BE24987005B5095 /* View */,
+			);
+			path = EditsView;
+			sourceTree = "<group>";
+		};
+		3C78A0482BE24987005B5095 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A04A2BE2499E005B5095 /* EditsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C78A0492BE2498C005B5095 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A04C2BE249AC005B5095 /* EditsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3C78A04E2BE249EE005B5095 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0502BE24A0A005B5095 /* ViewModel */,
+				3C78A04F2BE249FF005B5095 /* View */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		3C78A04F2BE249FF005B5095 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0532BE24A44005B5095 /* SettingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C78A0502BE24A0A005B5095 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0512BE24A21005B5095 /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		3C78A05D2BE2856E005B5095 /* DetailImageView */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A05F2BE2859E005B5095 /* ViewModel */,
+				3C78A05E2BE28597005B5095 /* View */,
+			);
+			path = DetailImageView;
+			sourceTree = "<group>";
+		};
+		3C78A05E2BE28597005B5095 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0622BE285C7005B5095 /* DetailImageView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		3C78A05F2BE2859E005B5095 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				3C78A0602BE285B7005B5095 /* DetailImageViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,20 +459,30 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C78A0612BE285B7005B5095 /* DetailImageViewModel.swift in Sources */,
 				3C78A0162BE16735005B5095 /* AuthViewState.swift in Sources */,
 				3C78A0062BE13D3F005B5095 /* AuthViewModel.swift in Sources */,
 				3C789FF02BE13518005B5095 /* AppDelegate.swift in Sources */,
 				3C78A0082BE13D57005B5095 /* AuthView.swift in Sources */,
+				3C78A0632BE285C7005B5095 /* DetailImageView.swift in Sources */,
+				3C78A0672BE29572005B5095 /* EditItem.swift in Sources */,
 				3C78A01E2BE16C6C005B5095 /* AuthProvider.swift in Sources */,
+				3C78A0452BE248D7005B5095 /* ImagesTabView.swift in Sources */,
 				3C78A0142BE1646A005B5095 /* DisabledButton.swift in Sources */,
 				3C789FE02BE13259005B5095 /* MainView.swift in Sources */,
 				3C78A01C2BE16C55005B5095 /* AuthService.swift in Sources */,
-				3C78A00E2BE13DC6005B5095 /* ImagesView.swift in Sources */,
+				3C78A00E2BE13DC6005B5095 /* DeviceImagesView.swift in Sources */,
 				3C78A0112BE15FE5005B5095 /* SignButton.swift in Sources */,
 				3C78A01A2BE16C44005B5095 /* AuthProviderProtocol.swift in Sources */,
 				3C789FDE2BE13259005B5095 /* ImagesAppApp.swift in Sources */,
+				3C78A04D2BE249AC005B5095 /* EditsViewModel.swift in Sources */,
 				3C78A0002BE1380A005B5095 /* MainViewModel.swift in Sources */,
-				3C78A00C2BE13DAF005B5095 /* ImagesViewModel.swift in Sources */,
+				3C78A04B2BE2499E005B5095 /* EditsView.swift in Sources */,
+				3C78A0652BE2945A005B5095 /* EditMenu.swift in Sources */,
+				3C78A00C2BE13DAF005B5095 /* DeviceImagesViewModel.swift in Sources */,
+				3C78A0522BE24A21005B5095 /* SettingsViewModel.swift in Sources */,
+				3C78A0562BE24AB8005B5095 /* TabItem.swift in Sources */,
+				3C78A0542BE24A44005B5095 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -497,6 +633,8 @@
 				DEVELOPMENT_TEAM = MRF492JZG4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to capture image to show in the app";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs to access to Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -526,6 +664,8 @@
 				DEVELOPMENT_TEAM = MRF492JZG4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app needs to capture image to show in the app";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "This app needs to access to Photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

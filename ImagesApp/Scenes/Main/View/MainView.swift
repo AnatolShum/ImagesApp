@@ -14,7 +14,7 @@ struct MainView: View {
         if let uid = viewModel.userId,
            !uid.isEmpty,
            viewModel.isSignedIn {
-            ImagesView()
+            ImagesTabView()
         } else {
             AuthView()
         }
