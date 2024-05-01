@@ -85,11 +85,8 @@ class AuthViewModel: ObservableObject {
     }
     
     private func signIn() {
-        authService.signIn(email: email, password: password) { [weak self] result in
-            switch result {
-            case .success(_ ):
-                break
-            case .failure(let error):
+        authService.signIn(email: email, password: password) { [weak self] error in
+            if let error {
                 self?.errorMessage = error.localizedDescription
                 self?.showAlert = true
             }
@@ -97,11 +94,8 @@ class AuthViewModel: ObservableObject {
     }
     
     private func signUp () {
-        authService.createUser(email: email, password: password) { [weak self] result in
-            switch result {
-            case .success(_ ):
-                break
-            case .failure(let error):
+        authService.createUser(email: email, password: password) { [weak self] error in
+            if let error {
                 self?.errorMessage = error.localizedDescription
                 self?.showAlert = true
             }

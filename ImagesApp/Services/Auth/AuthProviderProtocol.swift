@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AuthProviderProtocol {
-    func signIn(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func createUser(email: String, password: String, completion: @escaping (Result<Void, Error>) -> Void)
-    func signOut(completion: @escaping (Result<Void, Error>) -> Void)
+    func signIn(email: String, password: String, completion: @escaping (Error?) -> Void)
+    func createUser(email: String, password: String, completion: @escaping (Error?) -> Void)
+    func signOut(completion: @escaping (Error?) -> Void)
 }

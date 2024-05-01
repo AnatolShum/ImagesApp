@@ -10,12 +10,13 @@ import SwiftUI
 struct AuthView: View {
     @StateObject private var viewModel = AuthViewModel()
     @State private var viewState = AuthViewState.signIn
+    @State private var gradientColors: [Color] = [.green, .mint, .cyan]
     
     var body: some View {
         NavigationStack {
             ZStack {
                 LinearGradient(
-                    colors: [.green, .mint, .cyan],
+                    colors: gradientColors,
                     startPoint: .topLeading,
                     endPoint: .bottomTrailing
                 )
@@ -72,6 +73,7 @@ struct AuthView: View {
                             HStack {
                                 Button(action: {
                                     viewState.toggle()
+                                    gradientColors.reverse()
                                     viewModel.email = ""
                                     viewModel.password = ""
                                 }, label: {

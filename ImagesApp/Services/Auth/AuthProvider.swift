@@ -9,36 +9,32 @@ import Foundation
 import FirebaseAuth
 
 class AuthProvider: AuthProviderProtocol {
-    func signIn(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            if let _ = result {
-                completion(.success(()))
-            }
-            
+    func signIn(email: String, password: String, completion: @escaping (Error?) -> Void) {
+        Auth.auth().signIn(withEmail: email, password: password) { _, error in
             if let error {
-                completion(.failure(error))
+                completion(error)
+            } else {
+                completion(nil)
             }
         }
     }
     
-    func createUser(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
-        Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            if let _ = result {
-                completion(.success(()))
-            }
-            
+    func createUser(email: String, password: String, completion: @escaping (Error?) -> Void) {
+        Auth.auth().createUser(withEmail: email, password: password) { _, error in
             if let error {
-                completion(.failure(error))
+                completion(error)
+            } else {
+                completion(nil)
             }
         }
     }
     
-    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
+    func signOut(completion: @escaping (Error?) -> Void) {
         do {
             try Auth.auth().signOut()
-            completion(.success(()))
+            completion(nil)
         } catch {
-            completion(.failure(error))
+            completion(error)
         }
     }
     

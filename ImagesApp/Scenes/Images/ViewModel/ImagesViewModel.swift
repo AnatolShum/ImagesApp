@@ -11,11 +11,8 @@ class ImagesViewModel: ObservableObject {
     private let authService = AuthService()
     
     func signOut() {
-        authService.signOut { result in
-            switch result {
-            case .success(_):
-                break
-            case .failure(let error):
+        authService.signOut { error in
+            if let error {
                 print(error.localizedDescription)
             }
         }

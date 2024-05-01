@@ -14,19 +14,19 @@ class AuthService: AuthProviderProtocol {
         self.provider = AuthProvider()
     }
     
-    func signIn(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
+    func signIn(email: String, password: String, completion: @escaping (Error?) -> Void) {
         provider.signIn(email: email, password: password) { result in
             completion(result)
         }
     }
     
-    func createUser(email: String, password: String, completion: @escaping (Result<Void, any Error>) -> Void) {
+    func createUser(email: String, password: String, completion: @escaping (Error?) -> Void) {
         provider.createUser(email: email, password: password) { result in
             completion(result)
         }
     }
     
-    func signOut(completion: @escaping (Result<Void, Error>) -> Void) {
+    func signOut(completion: @escaping (Error?) -> Void) {
         provider.signOut { result in
             completion(result)
         }
