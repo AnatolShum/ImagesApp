@@ -10,13 +10,25 @@ import SwiftUI
 struct MainView: View {
     @StateObject private var viewModel = MainViewModel()
     
+    @EnvironmentObject var authState: AuthState
+    
     var body: some View {
         if let uid = viewModel.userId,
            !uid.isEmpty,
-           viewModel.isSignedIn {
+           viewModel.isSignedIn,
+           viewModel.isEmailVerified {
             ImagesTabView()
         } else {
-            AuthView()
+            switch authState.currentView {
+            case .auth:
+                if viewModel.isSignedIn {
+                    VerifyView(email: viewModel.userEmail)
+                } else {
+                    AuthView()
+                }
+            case .verify:
+                VerifyView(email: viewModel.userEmail)
+            }
         }
     }
 }

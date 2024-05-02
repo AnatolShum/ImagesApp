@@ -6,21 +6,30 @@
 //
 
 import Foundation
-import FirebaseAuth
 
 class MainViewModel: ObservableObject {
     @Published var userId: String?
-    private var handler: AuthStateDidChangeListenerHandle?
+    
+    private var authService = AuthService()
+    
     public var isSignedIn: Bool {
-        return Auth.auth().currentUser != nil
+        return authService.currentUser != nil
+    }
+    
+    public var userEmail: String {
+        return authService.currentUser?.email ?? "N/A"
+    }
+    
+    public var isEmailVerified: Bool {
+        return authService.currentUser?.isEmailVerified ?? false
     }
     
     init() {
-        self.handler = Auth.auth().addStateDidChangeListener({ [weak self] _, user in
+        authService.addStateDidChangeListener { [weak self] userId in
             DispatchQueue.main.async {
-                self?.userId = user?.uid
+                self?.userId = userId
             }
-        })
+        }
     }
     
 }

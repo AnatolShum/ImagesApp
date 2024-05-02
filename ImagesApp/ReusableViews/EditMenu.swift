@@ -57,10 +57,9 @@ struct EditMenu: View {
                             }
                         }
                 }
-             
-       
+                
             }
-
+            
         }
         .frame(height: 58)
     }

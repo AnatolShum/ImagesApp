@@ -14,6 +14,8 @@ class SettingsViewModel: ObservableObject {
     
     func signOut() {
         authService = AuthService()
+        authService?.googleSignOut()
+        
         authService?.signOut { [weak self] error in
             if let error {
                 self?.errorMessage = error.localizedDescription

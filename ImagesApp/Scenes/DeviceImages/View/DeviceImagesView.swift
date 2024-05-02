@@ -30,7 +30,7 @@ struct DeviceImagesView: View {
                                     .aspectRatio(1, contentMode: .fill)
                                     .clipShape(.rect(cornerRadius: 8))
                             }
-
+                            
                         }
                     }
                 }

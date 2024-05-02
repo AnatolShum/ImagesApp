@@ -10,3 +10,7 @@
 "signUp" = "Регистрация";
 "createAccount" = "Создать аккаунт";
 "login" = "Войти с паролем";
+"sendPasswordReset" = "Cбросить пароль";
+"send" = "Отправить";
+"forgotPass" = "Забыли пароль?";
+"verifyEmail" = "Проверка почты";

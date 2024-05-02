@@ -19,38 +19,23 @@ class AuthViewModel: ObservableObject {
     private let authService = AuthService()
     private var cancellable: AnyCancellable?
     
+    var isVerified: Bool? {
+        return authService.currentUser?.isEmailVerified
+    }
+    
     init() {
         let combined = $email.combineLatest($password)
         
         self.cancellable = combined
-            .map { [weak self] email, password in
-                guard let self else {
-                    return true
-                }
-                
-                guard self.validateEmail(email), self.validatePassword(password) else {
+            .map { email, password in
+                guard ValidateManager.shared.validateEmail(email),
+                      ValidateManager.shared.validatePassword(password) else {
                     return true
                 }
                 
                 return false
             }
             .assign(to: \.isButtonDisable, on: self)
-    }
-    
-    private func validateEmail(_ email: String) -> Bool {
-        let regex = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", regex)
-        
-        return emailPredicate.evaluate(with: email)
-    }
-    
-    private func validatePassword(_ password: String) -> Bool {
-        guard !password.trimmingCharacters(in: .whitespaces).isEmpty,
-              password.count >= 8 else {
-            return false
-        }
-        
-        return true
     }
     
     func viewTitle(_ state: AuthViewState) -> LocalizedStringKey {
@@ -97,4 +82,14 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+    
+    func signInGoogle() {
+        authService.googleSignIn { [weak self] error in
+            if let error {
+                self?.errorMessage = error.localizedDescription
+                self?.showAlert = true
+            }
+        }
+    }
+    
 }

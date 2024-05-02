@@ -10,3 +10,7 @@
 "signUp" = "Sign up";
 "createAccount" = "Create an account";
 "login" = "Enter with email and password";
+"sendPasswordReset" = "Password reset";
+"send" = "Send";
+"forgotPass" = "Forgot password?";
+"verifyEmail" = "Verify email";
