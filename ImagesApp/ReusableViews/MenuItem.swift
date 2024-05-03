@@ -1,5 +1,5 @@
 //
-//  EditItem.swift
+//  MenuItem.swift
 //  ImagesApp
 //
 //  Created by Anatolii Shumov on 01.05.2024.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct EditItem: View {
+struct MenuItem: View {
     let title: String
     let imageName: String
    

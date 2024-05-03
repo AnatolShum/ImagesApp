@@ -11,7 +11,7 @@ struct EditsView: View {
     @StateObject private var viewModel = EditsViewModel()
     
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        Text("Page for edited photos")
     }
 }
 

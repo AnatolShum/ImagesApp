@@ -21,7 +21,7 @@ struct MainView: View {
         } else {
             switch authState.currentView {
             case .auth:
-                if viewModel.isSignedIn {
+                if viewModel.isSignedIn && !viewModel.isEmailVerified {
                     VerifyView(email: viewModel.userEmail)
                 } else {
                     AuthView()

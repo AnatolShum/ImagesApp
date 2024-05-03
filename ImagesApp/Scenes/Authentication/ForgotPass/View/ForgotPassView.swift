@@ -41,8 +41,8 @@ struct ForgotPassView: View {
                                 showInfoAlert = true
                             }
                         }
-                                   .frame(height: 40)
-                                   .disabled(viewModel.isButtonDisable)
+                        .frame(height: 40)
+                        .disabled(viewModel.isButtonDisable)
                     }
                 }
                 

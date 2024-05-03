@@ -15,7 +15,6 @@ struct SettingsView: View {
             ZStack {
                 
             }
-            
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button(action: {
