@@ -78,16 +78,47 @@ struct DetailImageView: View {
                 .ignoresSafeArea()
             
             VStack {
-                CanvasView(canvasView: $viewModel.canvasView,
-                           image: $uiImage,
-                           toolPicker: $viewModel.toolPicker,
-                           isPickerShowing: $viewModel.isPickerShowing)
-                    .scaleEffect(zoom)
-                    .gesture(
-                        MagnifyGesture()
-                            .updating($zoom) { value, state, transaction in
-                                state = value.magnification
-                            })
+                GeometryReader { reader -> AnyView in
+                    let size = reader.frame(in: .global).size
+                    
+                    DispatchQueue.main.async {
+                        viewModel.rect = reader.frame(in: .global)
+                    }
+                    
+                    return AnyView(
+                        ZStack {
+                            CanvasView(canvasView: $viewModel.canvasView,
+                                       image: $uiImage,
+                                       toolPicker: $viewModel.toolPicker,
+                                       isPickerShowing: $viewModel.isPickerShowing, size: size)
+                            .scaleEffect(zoom)
+                            .gesture(
+                                MagnifyGesture()
+                                    .updating($zoom) { value, state, transaction in
+                                        state = value.magnification
+                                    })
+                            
+                            ForEach(viewModel.textBoxes) { textBox in
+                                Text(viewModel.getText(textBox))
+                                    .font(.system(size: textBox.fontSize))
+                                    .fontWeight(textBox.isBold ? .bold : .regular)
+                                    .foregroundStyle(textBox.textColor)
+                                    .offset(textBox.offset)
+                                    .gesture(DragGesture().onChanged({ value in
+                                        let currentOffset = value.translation
+                                        let previousOffset = textBox.previousOffset
+                                        let newOffset = CGSize(
+                                            width: previousOffset.width + currentOffset.width,
+                                            height: previousOffset.height + currentOffset.height)
+                                        
+                                        viewModel.textBoxes[viewModel.getIndex(textBox)].offset = newOffset
+                                    }).onEnded({ value in
+                                        viewModel.textBoxes[viewModel.getIndex(textBox)].previousOffset = value.translation
+                                    }))
+                            }
+                        }
+                    )
+                }
                 
                 Spacer()
                 
@@ -120,9 +151,7 @@ struct DetailImageView: View {
                                 }
                         }
                     case .text:
-                        MenuSection {
-                            Text("We are going to add it as soon as possible...")
-                        }
+                        ZStack {}
                     case .markup:
                         MenuSection {
                             MenuItem(title: "Undo", imageName: "arrow.uturn.backward.circle")
@@ -157,6 +186,8 @@ struct DetailImageView: View {
                                                 
                                                 if item == .markup {
                                                     viewModel.isPickerShowing = true
+                                                } else if item == .text {
+                                                    viewModel.addTextBox()
                                                 } else if item != .markup {
                                                     viewModel.isPickerShowing = false
                                                 }
@@ -179,6 +210,7 @@ struct DetailImageView: View {
                                         .onTapGesture {
                                             withAnimation(.easeInOut) {
                                                 selectedItem = .none
+                                                viewModel.isPickerShowing = false
                                             }
                                         }
                                 }
@@ -198,6 +230,48 @@ struct DetailImageView: View {
             }
             .toolbar(.hidden, for: .tabBar)
             .frame(maxHeight: .infinity, alignment: .bottom)
+            
+            if viewModel.isWriting {
+                Color.black.opacity(0.7)
+                    .ignoresSafeArea()
+                
+                TextField("Enter your text", text: $viewModel.textBoxes[viewModel.currentIndex].text)
+                    .font(.title)
+                    .preferredColorScheme(.dark)
+                    .foregroundStyle(viewModel.textBoxes[viewModel.currentIndex].textColor)
+                    .padding()
+                
+                HStack {
+                    Button(action: {
+                        viewModel.cancelTexting()
+                        selectedItem = .none
+                    }, label: {
+                        Text("Cancel")
+                            .font(.title2)
+                            .bold()
+                    })
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        withAnimation {
+                            viewModel.isWriting = false
+                            selectedItem = .none
+                        }
+                    }, label: {
+                        Text("Add")
+                            .font(.title2)
+                            .bold()
+                    })
+                }
+                .overlay {
+                    ColorPicker("", selection: $viewModel.textBoxes[viewModel.currentIndex].textColor)
+                        .labelsHidden()
+                }
+                .foregroundStyle(Color.white)
+                .padding(.horizontal, 26)
+                .frame(maxHeight: .infinity, alignment: .top)
+            }
         }
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
@@ -206,7 +280,7 @@ struct DetailImageView: View {
                 }
                 
                 TBItem(systemName: "square.and.arrow.down") {
-                    viewModel.saveImage(editedImage)
+                    viewModel.saveImage()
                 }
                 
                 ShareLink(item: editedImage, preview: SharePreview("Edited image", image: editedImage)) {
@@ -215,6 +289,14 @@ struct DetailImageView: View {
                         .foregroundStyle(Color.black)
                 }
             }
+        }
+        .alert("",
+               isPresented: $viewModel.showAlert) {
+            Button("OK", role: .cancel) {
+                viewModel.showAlert = false
+            }
+        } message: {
+            Text("Photo successfully saved in the Library")
         }
     }
     
@@ -249,8 +331,4 @@ struct DetailImageView: View {
     private func returnOriginalImage() {
         editedImage = image
     }
-}
-
-#Preview {
-    DetailImageView(image: Image("IMG_0831"), uiImage: UIImage(systemName: "plus")!)
 }

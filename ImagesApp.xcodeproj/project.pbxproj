@@ -58,6 +58,7 @@
 		3C78A0972BE3FD72005B5095 /* MenuSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C78A0962BE3FD72005B5095 /* MenuSection.swift */; };
 		3CA42EBE2BE52F0100265E87 /* TBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA42EBD2BE52F0100265E87 /* TBItem.swift */; };
 		3CA42EC02BE537BD00265E87 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA42EBF2BE537BD00265E87 /* CanvasView.swift */; };
+		3CA42EC22BE7DDDB00265E87 /* TextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA42EC12BE7DDDB00265E87 /* TextBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -110,6 +111,7 @@
 		3C78A0962BE3FD72005B5095 /* MenuSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuSection.swift; sourceTree = "<group>"; };
 		3CA42EBD2BE52F0100265E87 /* TBItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBItem.swift; sourceTree = "<group>"; };
 		3CA42EBF2BE537BD00265E87 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
+		3CA42EC12BE7DDDB00265E87 /* TextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -416,6 +418,7 @@
 			isa = PBXGroup;
 			children = (
 				3CA42EBF2BE537BD00265E87 /* CanvasView.swift */,
+				3CA42EC12BE7DDDB00265E87 /* TextBox.swift */,
 				3C78A0622BE285C7005B5095 /* DetailImageView.swift */,
 			);
 			path = View;
@@ -593,6 +596,7 @@
 				3CA42EC02BE537BD00265E87 /* CanvasView.swift in Sources */,
 				3C78A0612BE285B7005B5095 /* DetailImageViewModel.swift in Sources */,
 				3C78A0162BE16735005B5095 /* AuthViewState.swift in Sources */,
+				3CA42EC22BE7DDDB00265E87 /* TextBox.swift in Sources */,
 				3C78A0062BE13D3F005B5095 /* AuthViewModel.swift in Sources */,
 				3C789FF02BE13518005B5095 /* AppDelegate.swift in Sources */,
 				3C78A0082BE13D57005B5095 /* AuthView.swift in Sources */,

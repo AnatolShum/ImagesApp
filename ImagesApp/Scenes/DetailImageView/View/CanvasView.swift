@@ -14,6 +14,8 @@ struct CanvasView: UIViewRepresentable {
     @Binding var toolPicker: PKToolPicker
     @Binding var isPickerShowing: Bool
     
+    var size: CGSize
+    
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.isOpaque = false
         canvasView.backgroundColor = .clear
@@ -22,18 +24,20 @@ struct CanvasView: UIViewRepresentable {
             canvasView.drawingPolicy = .anyInput
         }
         
+        let imageView = UIImageView(image: image)
+        imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        
+        if let subView = canvasView.subviews.first {
+            subView.addSubview(imageView)
+            subView.sendSubviewToBack(imageView)
+        }
+        
         return canvasView
     }
     
     func updateUIView(_ uiView: PKCanvasView, context: Context) {
-        let imageView = UIImageView(image: image)
-        imageView.contentMode = .scaleAspectFit
-        imageView.clipsToBounds = true
-        
-        guard let subView = canvasView.subviews.first else { return }
-        subView.addSubview(imageView)
-        subView.sendSubviewToBack(imageView)
-        
         if isPickerShowing {
             showToolPicker()
         } else {
