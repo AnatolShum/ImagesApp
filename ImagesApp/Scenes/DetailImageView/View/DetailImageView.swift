@@ -21,17 +21,16 @@ struct DetailImageView: View {
     @GestureState private var zoom = 1.0
     
     @State var image: Image
+    @State var uiImage: UIImage?
     @State private var editedImage: Image
-    @State private var imageToSave: UIImage?
     @State private var selectedItem: MenuItems = .none
     @State private var filterIntensity = 0.5
     @State private var sepiaFilter = CIFilter.sepiaTone()
     @State private var bloomFilter = CIFilter.bloom()
-    @State private var canvasView = PKCanvasView()
-    @State private var drawing = PKDrawing()
     
-    init(image: Image) {
+    init(image: Image, uiImage: UIImage?) {
         self.image = image
+        self.uiImage = uiImage
         self.editedImage = image
     }
     
@@ -74,145 +73,146 @@ struct DetailImageView: View {
     }
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.gray.opacity(0.7)
-                    .ignoresSafeArea()
-                
-                VStack {
-                    Spacer()
-                    
-                    ZStack {
-                        GeometryReader { geometry in
-                            editedImage
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .rotationEffect(.degrees(viewModel.rotationDegrees))
-                                .frame(width: geometry.size.width)
-                            
-                            CanvasView(canvasView: $canvasView)
-                        }
-                    }
+        ZStack {
+            Color.gray.opacity(0.7)
+                .ignoresSafeArea()
+            
+            VStack {
+                CanvasView(canvasView: $viewModel.canvasView,
+                           image: $uiImage,
+                           toolPicker: $viewModel.toolPicker,
+                           isPickerShowing: $viewModel.isPickerShowing)
                     .scaleEffect(zoom)
                     .gesture(
                         MagnifyGesture()
                             .updating($zoom) { value, state, transaction in
                                 state = value.magnification
                             })
-                    .frame(height: 300)
-                    
-                    Spacer()
-                    
-                    VStack(spacing: 1) {
-                        switch selectedItem {
-                        case .crop:
-                            MenuSection {
-                                MenuItem(title: "Rotate", imageName: "rotate.left")
-                                    .onTapGesture {
-                                        viewModel.rotateLeft()
-                                    }
-                                
-                                MenuItem(title: "Rotate", imageName: "rotate.right")
-                                    .onTapGesture {
-                                        viewModel.rotateRight()
-                                    }
-                            }
-                        case .filters:
-                            MenuSection {
-                                MenuItem(title: "Sepia", imageName: "photo")
-                                    .onTapGesture {
-                                        sepiaFilter.setValue(renderImage(), forKey: kCIInputImageKey)
-                                        applySepia()
-                                    }
-                                
-                                MenuItem(title: "Bloom", imageName: "photo")
-                                    .onTapGesture {
-                                        bloomFilter.setValue(renderImage(), forKey: kCIInputImageKey)
-                                        applyBloom()
-                                    }
-                            }
-                        case .text:
-                            MenuSection {
-                                Text("We are going to add it as soon as possible...")
-                            }
-                        case .markup:
-                            MenuSection {
-                                MenuItem(title: "Undo", imageName: "arrow.uturn.backward.circle")
-                                    .onTapGesture {
-                                        undoManager?.undo()
-                                    }
-                                
-                                MenuItem(title: "Redo", imageName: "arrow.uturn.forward.circle")
-                                    .onTapGesture {
-                                        undoManager?.redo()
-                                    }
-                            }
-                        case .none:
-                            ZStack {}
-                        }
-                        
-                        ZStack {
-                            Color.black
+                
+                Spacer()
+                
+                VStack(spacing: 1) {
+                    switch selectedItem {
+                    case .crop:
+                        MenuSection {
+                            MenuItem(title: "Rotate", imageName: "rotate.left")
+                                .onTapGesture {
+                                    viewModel.rotateLeft()
+                                }
                             
-                            HStack {
-                                Spacer()
-                                HStack(spacing: 30) {
-                                    ForEach(MenuItems.allCases, id: \.self) { item in
-                                        if item != .none {
-                                            MenuItem(title: item.title ?? "",
-                                                     imageName: item.imageName ?? "")
-                                            .foregroundStyle(
-                                                selectedItem == item ? Color.white : Color.gray)
-                                            .onTapGesture {
-                                                withAnimation(.easeInOut) {
-                                                    selectedItem = item
+                            MenuItem(title: "Rotate", imageName: "rotate.right")
+                                .onTapGesture {
+                                    viewModel.rotateRight()
+                                }
+                        }
+                    case .filters:
+                        MenuSection {
+                            MenuItem(title: "Sepia", imageName: "photo")
+                                .onTapGesture {
+                                    sepiaFilter.setValue(renderImage(), forKey: kCIInputImageKey)
+                                    applySepia()
+                                }
+                            
+                            MenuItem(title: "Bloom", imageName: "photo")
+                                .onTapGesture {
+                                    bloomFilter.setValue(renderImage(), forKey: kCIInputImageKey)
+                                    applyBloom()
+                                }
+                        }
+                    case .text:
+                        MenuSection {
+                            Text("We are going to add it as soon as possible...")
+                        }
+                    case .markup:
+                        MenuSection {
+                            MenuItem(title: "Undo", imageName: "arrow.uturn.backward.circle")
+                                .onTapGesture {
+                                    undoManager?.undo()
+                                }
+                            
+                            MenuItem(title: "Redo", imageName: "arrow.uturn.forward.circle")
+                                .onTapGesture {
+                                    undoManager?.redo()
+                                }
+                        }
+                    case .none:
+                        ZStack {}
+                    }
+                    
+                    ZStack {
+                        Color.black
+                        
+                        HStack {
+                            Spacer()
+                            HStack(spacing: 30) {
+                                ForEach(MenuItems.allCases, id: \.self) { item in
+                                    if item != .none {
+                                        MenuItem(title: item.title ?? "",
+                                                 imageName: item.imageName ?? "")
+                                        .foregroundStyle(
+                                            selectedItem == item ? Color.white : Color.gray)
+                                        .onTapGesture {
+                                            withAnimation(.easeInOut) {
+                                                selectedItem = item
+                                                
+                                                if item == .markup {
+                                                    viewModel.isPickerShowing = true
+                                                } else if item != .markup {
+                                                    viewModel.isPickerShowing = false
                                                 }
                                             }
                                         }
                                     }
                                 }
-                                .padding(.leading, 40)
+                            }
+                            .padding(.leading, 40)
+                            
+                            Spacer()
+                            
+                            HStack {
+                                if selectedItem != .none {
+                                    Image(systemName: "xmark.square")
+                                        .resizable()
+                                        .renderingMode(.template)
+                                        .foregroundStyle(Color.gray)
+                                        .frame(width: 22, height: 22)
+                                        .onTapGesture {
+                                            withAnimation(.easeInOut) {
+                                                selectedItem = .none
+                                            }
+                                        }
+                                }
                                 
                                 Spacer()
-                                
-                                HStack {
-                                    if selectedItem != .none {
-                                        Image(systemName: "xmark.square")
-                                            .resizable()
-                                            .renderingMode(.template)
-                                            .foregroundStyle(Color.gray)
-                                            .frame(width: 22, height: 22)
-                                            .onTapGesture {
-                                                withAnimation(.easeInOut) {
-                                                    selectedItem = .none
-                                                }
-                                            }
-                                    }
-                                    
-                                    Spacer()
-                                }
-                                .frame(width: 40)
-                                
                             }
-                            .frame(maxWidth: .infinity)
+                            .frame(width: 40)
                             
                         }
-                        .frame(height: 58)
+                        .frame(maxWidth: .infinity)
+                        
                     }
-                    .frame(height: 113, alignment: .bottom)
+                    .frame(height: 58)
                 }
-                .toolbar(.hidden, for: .tabBar)
-                .frame(maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, viewModel.isPickerShowing ? 80 : 0)
+                .frame(height: 113, alignment: .bottom)
             }
-            .toolbar {
-                ToolbarItemGroup(placement: .primaryAction) {
-                    TBItem(systemName: "arrow.uturn.backward") {
-                        returnOriginalImage()
-                    }
-                    
-                    TBItem(systemName: "square.and.arrow.down") {
-                        saveImage()
-                    }
+            .toolbar(.hidden, for: .tabBar)
+            .frame(maxHeight: .infinity, alignment: .bottom)
+        }
+        .toolbar {
+            ToolbarItemGroup(placement: .primaryAction) {
+                TBItem(systemName: "arrow.uturn.backward") {
+                    returnOriginalImage()
+                }
+                
+                TBItem(systemName: "square.and.arrow.down") {
+                    viewModel.saveImage(editedImage)
+                }
+                
+                ShareLink(item: editedImage, preview: SharePreview("Edited image", image: editedImage)) {
+                    Image(systemName: "square.and.arrow.up")
+                        .renderingMode(.template)
+                        .foregroundStyle(Color.black)
                 }
             }
         }
@@ -231,7 +231,7 @@ struct DetailImageView: View {
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
         
         let uiImage = UIImage(cgImage: cgImage)
-        imageToSave = uiImage
+        self.uiImage = uiImage
         editedImage = Image(uiImage: uiImage)
     }
     
@@ -242,22 +242,15 @@ struct DetailImageView: View {
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
         
         let uiImage = UIImage(cgImage: cgImage)
-        imageToSave = uiImage
+        self.uiImage = uiImage
         editedImage = Image(uiImage: uiImage)
     }
     
     private func returnOriginalImage() {
         editedImage = image
     }
-    
-    private func saveImage() {
-        let render = ImageRenderer(content: editedImage)
-        guard let uiImage = render.uiImage else { return }
-        
-        UIImageWriteToSavedPhotosAlbum(uiImage, nil, nil, nil)
-    }
 }
 
 #Preview {
-    DetailImageView(image: Image("IMG_0831"))
+    DetailImageView(image: Image("IMG_0831"), uiImage: UIImage(systemName: "plus")!)
 }

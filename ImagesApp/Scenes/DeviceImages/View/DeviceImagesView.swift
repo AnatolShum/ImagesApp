@@ -18,34 +18,53 @@ struct DeviceImagesView: View {
     
     var body: some View {
         NavigationStack {
-            VStack {
-                ScrollView {
-                    LazyVGrid(columns: columns, spacing: 10) {
-                        ForEach(0..<selectedImages.count, id: \.self) { index in
-                            NavigationLink {
-                                DetailImageView(image: selectedImages[index])
-                            } label: {
-                                selectedImages[index]
-                                    .resizable()
-                                    .aspectRatio(1, contentMode: .fill)
-                                    .clipShape(.rect(cornerRadius: 8))
+            ZStack {
+                VStack {
+                    ScrollView {
+                        LazyVGrid(columns: columns, spacing: 10) {
+                            ForEach(0..<selectedImages.count, id: \.self) { index in
+                                let render = ImageRenderer(content: selectedImages[index])
+                                let uiImage = render.uiImage
+                                NavigationLink {
+                                    DetailImageView(image: selectedImages[index], uiImage: uiImage)
+                                } label: {
+                                    selectedImages[index]
+                                        .resizable()
+                                        .aspectRatio(1, contentMode: .fill)
+                                        .clipShape(.rect(cornerRadius: 8))
+                                }
+                                
                             }
-                            
                         }
                     }
+                    .padding(.horizontal, 10)
+                    .scrollIndicators(.hidden)
                 }
-                .padding(.horizontal, 10)
-                .scrollIndicators(.hidden)
-            }
-            .toolbar {
-                ToolbarItemGroup(placement: .primaryAction) {
-                    PhotosPicker(selection: $pickerItems, matching: .images) {
-                        Image(systemName: "photo.badge.plus")
-                            .resizable()
-                            .renderingMode(.template)
-                            .foregroundStyle(Color.black)
+                
+                VStack {
+                    Spacer()
+                    
+                    HStack {
+                        Spacer()
+                        
+                        ZStack {
+                            Circle()
+                                .foregroundStyle(Color.blue)
+                                .frame(width: 44, height: 44)
+                                .shadow(color: .gray, radius: 4)
+                            
+                            PhotosPicker(selection: $pickerItems, matching: .images) {
+                                Image(systemName: "plus")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: 28, height: 28)
+                            }
+                        }
                     }
+                    .padding(.trailing, 30)
                 }
+                .padding(.bottom, 30)
             }
         }
         .onChange(of: pickerItems) {
