@@ -59,6 +59,7 @@
 		3CA42EBE2BE52F0100265E87 /* TBItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA42EBD2BE52F0100265E87 /* TBItem.swift */; };
 		3CA42EC02BE537BD00265E87 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA42EBF2BE537BD00265E87 /* CanvasView.swift */; };
 		3CA42EC22BE7DDDB00265E87 /* TextBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA42EC12BE7DDDB00265E87 /* TextBox.swift */; };
+		3CA42EC42BE8B92900265E87 /* FontSizeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA42EC32BE8B92900265E87 /* FontSizeView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		3CA42EBD2BE52F0100265E87 /* TBItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TBItem.swift; sourceTree = "<group>"; };
 		3CA42EBF2BE537BD00265E87 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		3CA42EC12BE7DDDB00265E87 /* TextBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBox.swift; sourceTree = "<group>"; };
+		3CA42EC32BE8B92900265E87 /* FontSizeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontSizeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,6 +310,7 @@
 				3C78A0772BE37D88005B5095 /* GradientBackgroundView.swift */,
 				3C78A0792BE380E4005B5095 /* TitleView.swift */,
 				3CA42EBD2BE52F0100265E87 /* TBItem.swift */,
+				3CA42EC32BE8B92900265E87 /* FontSizeView.swift */,
 			);
 			path = ReusableViews;
 			sourceTree = "<group>";
@@ -408,6 +411,7 @@
 		3C78A05D2BE2856E005B5095 /* DetailImageView */ = {
 			isa = PBXGroup;
 			children = (
+				3CA42EC52BE8C18C00265E87 /* Model */,
 				3C78A05F2BE2859E005B5095 /* ViewModel */,
 				3C78A05E2BE28597005B5095 /* View */,
 			);
@@ -418,7 +422,6 @@
 			isa = PBXGroup;
 			children = (
 				3CA42EBF2BE537BD00265E87 /* CanvasView.swift */,
-				3CA42EC12BE7DDDB00265E87 /* TextBox.swift */,
 				3C78A0622BE285C7005B5095 /* DetailImageView.swift */,
 			);
 			path = View;
@@ -505,6 +508,14 @@
 				3C78A0862BE397E2005B5095 /* ValidateManager.swift */,
 			);
 			path = Validate;
+			sourceTree = "<group>";
+		};
+		3CA42EC52BE8C18C00265E87 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3CA42EC12BE7DDDB00265E87 /* TextBox.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -607,6 +618,7 @@
 				3C78A01E2BE16C6C005B5095 /* AuthProvider.swift in Sources */,
 				3C78A0452BE248D7005B5095 /* ImagesTabView.swift in Sources */,
 				3C78A0812BE39570005B5095 /* VerifyViewModel.swift in Sources */,
+				3CA42EC42BE8B92900265E87 /* FontSizeView.swift in Sources */,
 				3C78A0892BE39C0F005B5095 /* TimerState.swift in Sources */,
 				3C78A07C2BE38CAD005B5095 /* TitleButton.swift in Sources */,
 				3C78A06D2BE37A0A005B5095 /* FieldsView.swift in Sources */,

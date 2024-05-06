@@ -72,10 +72,9 @@ class DetailImageViewModel: ObservableObject {
     }
     
     func cancelTexting() {
-        withAnimation {
-            isWriting = false
-        }
+        isWriting = false
         textBoxes.removeLast()
+        currentIndex = textBoxes.count - 1
     }
     
     func getText(_ textBox: TextBox) -> String {
@@ -90,5 +89,23 @@ class DetailImageViewModel: ObservableObject {
     func getIndex(_ textBox: TextBox) -> Int {
         let index = textBoxes.firstIndex { $0.id == textBox.id }
         return index ?? 0
+    }
+    
+    func plusFontSize(_ size: CGFloat) -> Int {
+        var intSize = Int(size)
+        if intSize < 99 {
+            intSize += 1
+        }
+        
+        return intSize
+    }
+    
+    func minusFontSize(_ size: CGFloat) -> Int {
+        var intSize = Int(size)
+        if intSize > 1 {
+            intSize -= 1
+        }
+        
+        return intSize
     }
 }

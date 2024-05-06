@@ -78,46 +78,43 @@ struct DetailImageView: View {
                 .ignoresSafeArea()
             
             VStack {
-                GeometryReader { reader -> AnyView in
-                    let size = reader.frame(in: .global).size
-                    
-                    DispatchQueue.main.async {
-                        viewModel.rect = reader.frame(in: .global)
-                    }
-                    
-                    return AnyView(
-                        ZStack {
-                            CanvasView(canvasView: $viewModel.canvasView,
-                                       image: $uiImage,
-                                       toolPicker: $viewModel.toolPicker,
-                                       isPickerShowing: $viewModel.isPickerShowing, size: size)
-                            .scaleEffect(zoom)
-                            .gesture(
-                                MagnifyGesture()
-                                    .updating($zoom) { value, state, transaction in
-                                        state = value.magnification
-                                    })
-                            
-                            ForEach(viewModel.textBoxes) { textBox in
-                                Text(viewModel.getText(textBox))
-                                    .font(.system(size: textBox.fontSize))
-                                    .fontWeight(textBox.isBold ? .bold : .regular)
-                                    .foregroundStyle(textBox.textColor)
-                                    .offset(textBox.offset)
-                                    .gesture(DragGesture().onChanged({ value in
-                                        let currentOffset = value.translation
-                                        let previousOffset = textBox.previousOffset
-                                        let newOffset = CGSize(
-                                            width: previousOffset.width + currentOffset.width,
-                                            height: previousOffset.height + currentOffset.height)
-                                        
-                                        viewModel.textBoxes[viewModel.getIndex(textBox)].offset = newOffset
-                                    }).onEnded({ value in
-                                        viewModel.textBoxes[viewModel.getIndex(textBox)].previousOffset = value.translation
-                                    }))
-                            }
+                GeometryReader { reader in
+                    ZStack {
+                        CanvasView(canvasView: $viewModel.canvasView,
+                                   image: $uiImage,
+                                   toolPicker: $viewModel.toolPicker,
+                                   isPickerShowing: $viewModel.isPickerShowing, size: reader.frame(in: .global).size)
+                        .scaleEffect(zoom)
+                        .gesture(
+                            MagnifyGesture()
+                                .updating($zoom) { value, state, transaction in
+                                    state = value.magnification
+                                })
+                        
+                        ForEach(viewModel.textBoxes) { textBox in
+                            Text(viewModel.getText(textBox))
+                                .font(.system(size: textBox.fontSize))
+                                .fontWeight(textBox.isBold ? .bold : .regular)
+                                .foregroundStyle(textBox.textColor)
+                                .offset(textBox.offset)
+                                .gesture(DragGesture().onChanged({ value in
+                                    let currentOffset = value.translation
+                                    let previousOffset = textBox.previousOffset
+                                    let newOffset = CGSize(
+                                        width: previousOffset.width + currentOffset.width,
+                                        height: previousOffset.height + currentOffset.height)
+                                    
+                                    viewModel.textBoxes[viewModel.getIndex(textBox)].offset = newOffset
+                                }).onEnded({ value in
+                                    viewModel.textBoxes[viewModel.getIndex(textBox)].previousOffset = value.translation
+                                }))
                         }
-                    )
+                    }
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            viewModel.rect = reader.frame(in: .global)
+                        }
+                    }
                 }
                 
                 Spacer()
@@ -173,6 +170,7 @@ struct DetailImageView: View {
                         
                         HStack {
                             Spacer()
+                            
                             HStack(spacing: 30) {
                                 ForEach(MenuItems.allCases, id: \.self) { item in
                                     if item != .none {
@@ -187,6 +185,7 @@ struct DetailImageView: View {
                                                 if item == .markup {
                                                     viewModel.isPickerShowing = true
                                                 } else if item == .text {
+                                                    viewModel.isPickerShowing = false
                                                     viewModel.addTextBox()
                                                 } else if item != .markup {
                                                     viewModel.isPickerShowing = false
@@ -236,7 +235,9 @@ struct DetailImageView: View {
                     .ignoresSafeArea()
                 
                 TextField("Enter your text", text: $viewModel.textBoxes[viewModel.currentIndex].text)
-                    .font(.title)
+                    .font(.system(
+                        size: viewModel.textBoxes[viewModel.currentIndex].fontSize,
+                        weight: viewModel.textBoxes[viewModel.currentIndex].isBold ? .bold : .regular))
                     .preferredColorScheme(.dark)
                     .foregroundStyle(viewModel.textBoxes[viewModel.currentIndex].textColor)
                     .padding()
@@ -265,8 +266,38 @@ struct DetailImageView: View {
                     })
                 }
                 .overlay {
-                    ColorPicker("", selection: $viewModel.textBoxes[viewModel.currentIndex].textColor)
-                        .labelsHidden()
+                    HStack(spacing: 30) {
+                        ColorPicker("", selection: $viewModel.textBoxes[viewModel.currentIndex].textColor)
+                            .labelsHidden()
+                        
+                        Button(action: {
+                            viewModel.textBoxes[viewModel.currentIndex].isBold.toggle()
+                        }, label: {
+                            ZStack {
+                                RoundedRectangle(cornerRadius: 8)
+                                    .foregroundStyle(viewModel.textBoxes[viewModel.currentIndex].isBold ? Color.gray.opacity(0.75) : .clear)
+                                
+                                Image(systemName: "bold")
+                                    .resizable()
+                                    .renderingMode(.template)
+                                    .foregroundStyle(Color.white)
+                                    .frame(width: 18, height: 18)
+                                    .padding(.all, 4)
+                            }
+                            .frame(width: 26, height: 26)
+                        })
+                        
+                        FontSizeView(
+                            fontSize: "\(Int(viewModel.textBoxes[viewModel.currentIndex].fontSize))",
+                            upAction: {
+                                let newSize = CGFloat(viewModel.plusFontSize(viewModel.textBoxes[viewModel.currentIndex].fontSize))
+                                viewModel.textBoxes[viewModel.currentIndex].fontSize = newSize
+                            },  downAction: {
+                                let newSize = CGFloat(viewModel.minusFontSize(viewModel.textBoxes[viewModel.currentIndex].fontSize))
+                                viewModel.textBoxes[viewModel.currentIndex].fontSize = newSize
+                            })
+                    }
+                    .padding(.top, 70)
                 }
                 .foregroundStyle(Color.white)
                 .padding(.horizontal, 26)
