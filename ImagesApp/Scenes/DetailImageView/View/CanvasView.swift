@@ -10,7 +10,7 @@ import PencilKit
 
 struct CanvasView: UIViewRepresentable {
     @Binding var canvasView: PKCanvasView
-    @Binding var image: UIImage?
+    @Binding var image: UIImage
     @Binding var toolPicker: PKToolPicker
     @Binding var isPickerShowing: Bool
     

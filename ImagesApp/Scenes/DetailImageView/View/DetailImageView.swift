@@ -20,18 +20,17 @@ struct DetailImageView: View {
     
     @GestureState private var zoom = 1.0
     
-    @State var image: Image
-    @State var uiImage: UIImage?
+    @State var uiImage: UIImage
+    @State private var image: Image
     @State private var editedImage: Image
     @State private var selectedItem: MenuItems = .none
     @State private var filterIntensity = 0.5
-    @State private var sepiaFilter = CIFilter.sepiaTone()
-    @State private var bloomFilter = CIFilter.bloom()
+    @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
     
-    init(image: Image, uiImage: UIImage?) {
-        self.image = image
+    init(uiImage: UIImage) {
         self.uiImage = uiImage
-        self.editedImage = image
+        self.image = Image(uiImage: uiImage)
+        self.editedImage = Image(uiImage: uiImage)
     }
     
     enum MenuItems: CaseIterable {
@@ -111,6 +110,7 @@ struct DetailImageView: View {
                                 }))
                         }
                     }
+                    .padding(.bottom, 80)
                     .onAppear {
                         DispatchQueue.main.async {
                             viewModel.rect = reader.frame(in: .global)
@@ -138,22 +138,17 @@ struct DetailImageView: View {
                         MenuSection {
                             MenuItem(title: "Sepia", imageName: "photo")
                                 .onTapGesture {
-                                    if let ciImage = renderImage() {
-                                        uiImage = UIImage(ciImage: ciImage)
-                                    }
-                                
-                                    sepiaFilter.setValue(renderImage(), forKey: kCIInputImageKey)
-                                    applySepia()
+                                    setFilter(CIFilter.sepiaTone())
                                 }
                             
                             MenuItem(title: "Bloom", imageName: "photo")
                                 .onTapGesture {
-                                    if let ciImage = renderImage() {
-                                        uiImage = UIImage(ciImage: ciImage)
-                                    }
-                                    
-                                    bloomFilter.setValue(renderImage(), forKey: kCIInputImageKey)
-                                    applyBloom()
+                                    setFilter(CIFilter.bloom())
+                                }
+                            
+                            MenuItem(title: "Blur", imageName: "photo")
+                                .onTapGesture {
+                                    setFilter(CIFilter.gaussianBlur())
                                 }
                         }
                     case .text:
@@ -299,10 +294,10 @@ struct DetailImageView: View {
                         FontSizeView(
                             fontSize: "\(Int(viewModel.textBoxes[viewModel.currentIndex].fontSize))",
                             upAction: {
-                                let newSize = CGFloat(viewModel.plusFontSize(viewModel.textBoxes[viewModel.currentIndex].fontSize))
+                                let newSize = viewModel.plusFontSize(viewModel.textBoxes[viewModel.currentIndex].fontSize)
                                 viewModel.textBoxes[viewModel.currentIndex].fontSize = newSize
                             },  downAction: {
-                                let newSize = CGFloat(viewModel.minusFontSize(viewModel.textBoxes[viewModel.currentIndex].fontSize))
+                                let newSize = viewModel.minusFontSize(viewModel.textBoxes[viewModel.currentIndex].fontSize)
                                 viewModel.textBoxes[viewModel.currentIndex].fontSize = newSize
                             })
                     }
@@ -316,6 +311,8 @@ struct DetailImageView: View {
         .toolbar {
             ToolbarItemGroup(placement: .primaryAction) {
                 TBItem(systemName: "arrow.uturn.backward") {
+                    viewModel.textBoxes = []
+                    undoManager?.undo()
                     returnOriginalImage()
                 }
                 
@@ -341,15 +338,20 @@ struct DetailImageView: View {
     }
     
     private func renderImage() -> CIImage? {
-        let render = ImageRenderer(content: editedImage)
-        guard let uiImage = render.uiImage else { return nil }
         return CIImage(image: uiImage)
     }
     
-    private func applySepia() {
-        sepiaFilter.intensity = Float(filterIntensity)
+    private func applyFilter() {
+        let inputKeys = currentFilter.inputKeys
         
-        guard let outputImage = sepiaFilter.outputImage else { return }
+        if inputKeys.contains(kCIInputIntensityKey) {
+            currentFilter.setValue(filterIntensity, forKey: kCIInputIntensityKey)
+        }
+        if inputKeys.contains(kCIInputRadiusKey) {
+            currentFilter.setValue(filterIntensity * 100, forKey: kCIInputRadiusKey)
+        }
+        
+        guard let outputImage = currentFilter.outputImage else { return }
         guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
         
         let uiImage = UIImage(cgImage: cgImage)
@@ -357,15 +359,10 @@ struct DetailImageView: View {
         editedImage = Image(uiImage: uiImage)
     }
     
-    private func applyBloom() {
-        bloomFilter.intensity = Float(filterIntensity)
-        
-        guard let outputImage = bloomFilter.outputImage else { return }
-        guard let cgImage = context.createCGImage(outputImage, from: outputImage.extent) else { return }
-        
-        let uiImage = UIImage(cgImage: cgImage)
-        self.uiImage = uiImage
-        editedImage = Image(uiImage: uiImage)
+    private func setFilter(_ filter: CIFilter) {
+        currentFilter = filter
+        currentFilter.setValue(renderImage(), forKey: kCIInputImageKey)
+        applyFilter()
     }
     
     private func returnOriginalImage() {

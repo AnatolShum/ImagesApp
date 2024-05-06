@@ -12,33 +12,38 @@ struct DeviceImagesView: View {
     @StateObject private var viewModel = DeviceImagesViewModel()
     
     @State private var pickerItems: [PhotosPickerItem] = []
-    @State private var selectedImages: [Image] = []
+    @State private var selectedImages: [UIImage] = []
     
     private let columns = [GridItem(.flexible(minimum: 80), spacing: 10), GridItem(.flexible(minimum: 80), spacing: 10)]
     
     var body: some View {
         NavigationStack {
             ZStack {
-                VStack {
-                    ScrollView {
-                        LazyVGrid(columns: columns, spacing: 10) {
-                            ForEach(0..<selectedImages.count, id: \.self) { index in
-                                let render = ImageRenderer(content: selectedImages[index])
-                                let uiImage = render.uiImage
-                                NavigationLink {
-                                    DetailImageView(image: selectedImages[index], uiImage: uiImage)
-                                } label: {
-                                    selectedImages[index]
-                                        .resizable()
-                                        .aspectRatio(1, contentMode: .fill)
-                                        .clipShape(.rect(cornerRadius: 8))
+                if !selectedImages.isEmpty {
+                    VStack {
+                        ScrollView {
+                            LazyVGrid(columns: columns, spacing: 10) {
+                                ForEach(0..<selectedImages.count, id: \.self) { index in
+                                    NavigationLink {
+                                        DetailImageView(uiImage: selectedImages[index])
+                                    } label: {
+                                        Image(uiImage: selectedImages[index])
+                                            .resizable()
+                                            .aspectRatio(1, contentMode: .fill)
+                                            .clipShape(.rect(cornerRadius: 8))
+                                    }
+                                    
                                 }
-                                
                             }
                         }
+                        .padding(.horizontal, 10)
+                        .scrollIndicators(.hidden)
                     }
-                    .padding(.horizontal, 10)
-                    .scrollIndicators(.hidden)
+                } else {
+                    ContentUnavailableView(
+                        "No pictures",
+                        systemImage: "photo.on.rectangle",
+                        description: Text("Please click the button below to select photos"))
                 }
                 
                 VStack {
@@ -72,8 +77,12 @@ struct DeviceImagesView: View {
                 selectedImages.removeAll()
                 
                 for item in pickerItems {
-                    if let loadedImage = try await item.loadTransferable(type: Image.self) {
-                        selectedImages.append(loadedImage)
+                    if let imageData = try await item.loadTransferable(type: Data.self) {
+                        if let uiImage = UIImage(data: imageData) {
+                            withAnimation(.smooth(duration: 0.75)) {
+                                selectedImages.append(uiImage)
+                            }
+                        }
                     }
                 }
             }

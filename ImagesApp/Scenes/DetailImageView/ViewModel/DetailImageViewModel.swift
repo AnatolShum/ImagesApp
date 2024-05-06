@@ -41,7 +41,7 @@ class DetailImageViewModel: ObservableObject {
         }
     }
     
-    private func renderImage(completion: @escaping (UIImage) -> Void) {
+    func renderImage(completion: @escaping (UIImage) -> Void) {
         UIGraphicsImageRenderer(size: rect.size).image { context in
             canvasView.drawHierarchy(in: CGRect(origin: .zero, size: rect.size), afterScreenUpdates: true)
             let view = ZStack {
@@ -91,21 +91,21 @@ class DetailImageViewModel: ObservableObject {
         return index ?? 0
     }
     
-    func plusFontSize(_ size: CGFloat) -> Int {
-        var intSize = Int(size)
-        if intSize < 99 {
-            intSize += 1
+    func plusFontSize(_ size: CGFloat) -> CGFloat {
+        var counter = size
+        if counter < 99 {
+            counter += 1
         }
         
-        return intSize
+        return counter
     }
     
-    func minusFontSize(_ size: CGFloat) -> Int {
-        var intSize = Int(size)
-        if intSize > 1 {
-            intSize -= 1
+    func minusFontSize(_ size: CGFloat) -> CGFloat {
+        var counter = size
+        if counter > 1 {
+            counter -= 1
         }
         
-        return intSize
+        return counter
     }
 }
