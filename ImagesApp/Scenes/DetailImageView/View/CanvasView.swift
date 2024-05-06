@@ -15,6 +15,7 @@ struct CanvasView: UIViewRepresentable {
     @Binding var isPickerShowing: Bool
     
     var size: CGSize
+    let imageView = UIImageView()
     
     func makeUIView(context: Context) -> PKCanvasView {
         canvasView.isOpaque = false
@@ -24,7 +25,7 @@ struct CanvasView: UIViewRepresentable {
             canvasView.drawingPolicy = .anyInput
         }
         
-        let imageView = UIImageView(image: image)
+        imageView.image = image
         imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true

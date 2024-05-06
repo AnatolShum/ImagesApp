@@ -85,6 +85,7 @@ struct DetailImageView: View {
                                    toolPicker: $viewModel.toolPicker,
                                    isPickerShowing: $viewModel.isPickerShowing, size: reader.frame(in: .global).size)
                         .scaleEffect(zoom)
+                        .rotationEffect(.degrees(viewModel.rotationDegrees))
                         .gesture(
                             MagnifyGesture()
                                 .updating($zoom) { value, state, transaction in
@@ -137,12 +138,20 @@ struct DetailImageView: View {
                         MenuSection {
                             MenuItem(title: "Sepia", imageName: "photo")
                                 .onTapGesture {
+                                    if let ciImage = renderImage() {
+                                        uiImage = UIImage(ciImage: ciImage)
+                                    }
+                                
                                     sepiaFilter.setValue(renderImage(), forKey: kCIInputImageKey)
                                     applySepia()
                                 }
                             
                             MenuItem(title: "Bloom", imageName: "photo")
                                 .onTapGesture {
+                                    if let ciImage = renderImage() {
+                                        uiImage = UIImage(ciImage: ciImage)
+                                    }
+                                    
                                     bloomFilter.setValue(renderImage(), forKey: kCIInputImageKey)
                                     applyBloom()
                                 }
